@@ -1,0 +1,184 @@
+create  database moviedb;
+---------------------------------------------------------------------
+use database moviedb;
+---------------------------------------------------------------------
+
+creating tables
+~~~~~~~~~~~
+1:     
+ create table movie(
+mov_id int primary key auto_increment,
+mov_title varchar(50),
+mov_year int,
+mov_time int,
+mov_lang varchar(20),
+mov_dt_rel date,
+mov_rel_country varchar(20));
+__________________________________________________________
+desc movie;
+__________________________________________________________
+2:
+ create table actor(
+act_id int primary key auto_increment,
+act_fname varchar(20),
+act_lname varchar(20)
+act_gender enum('f','m'));
+__________________________________________________________
+desc actor;
+__________________________________________________________
+3:
+ create table director(
+dir_id int primary key auto_increment,
+dir_fname varchar(20),
+dir_lname varchar(20));
+_________________________________________________________
+desc director;
+_________________________________________________________
+4:
+create table genres(
+gen_id int primary key auto_increment,
+gen_litle varchar(20));
+__________________________________________________________
+desc genres;
+__________________________________________________________
+5:
+create table reviewer (
+rev_id int primary key auto_increment,
+rev_name varchar(30));
+__________________________________________________________
+desc reviewer;
+__________________________________________________________
+6:
+create table movie_cast(
+act_id int,
+mov_id int,
+role varchar(30),
+foreign key (act_id) references actor (act_id)
+foreign key(mov_id)references movie(mov_id));
+__________________________________________________________
+desc movie_cast;
+__________________________________________________________
+7:
+create table movie_genres(
+mov_id int,
+gen_id int,
+foreign key(mov_id)references movie(mov_id),
+foreign key(gen_id) references movie(gen_id));
+__________________________________________________________
+desc movie_genres;
+__________________________________________________________
+8:
+create table rating(
+mov_id int,
+rev_id int,
+rev_stars int,
+num_o_ratings int,
+foreign key(mov_id)references movie(mov_id),
+foreign key(rev_id) references reviewer(rev_id));
+__________________________________________________________
+desc rating;
+__________________________________________________________
+9:
+create table movie_direction(
+dir_id int,
+mov_id int,
+foreign key(dir_id) references director(dir_id),
+foreign key(mov_id)references movie(mov_id));
+__________________________________________________________
+desc movie_direction;
+---------------------------------------------------------------------
+
+
+Inserting values into tables:
+~~~~~~~~~~~~~~~~~~
+1: 
+insert into movie values
+(1,'ramleela',2018,12,'hindi','2018-02-14','india'),
+(2,'ramsetu',2021,3,'telgue','2021-07-21','india'),
+(3,'omg2',2023,11,'hindi','2023-06-25','india'),
+(4,'avtaar',2022,4,'english','2022-09-19','usa'),
+(5,'barbie',2023,2,'english','2023-07-03','russia');
+__________________________________________________________
+select *from movie;
+__________________________________________________________
+2:
+insert into actor values
+(1,'anushka','shetty','f'),
+(2,'ram','charan','m'),
+(3,'ranbir','kapoor','m'),
+(4,'kiara','advani','f'),
+(5,'shiddhart','malhotra','m');
+__________________________________________________________
+select *from actor;
+__________________________________________________________
+3:
+ insert into genres values
+(1,'mystrious'),
+(2,'historical'),
+(3,'religious'),
+(4,'3d'),
+(5,'cartoon');
+__________________________________________________________
+select *from genres;
+__________________________________________________________
+4:
+ insert into reviewer values
+(1,'amruta'),
+(2,'ritik'),
+(3,'pratik'),
+(4,'manali'),
+(5,'omkar');
+__________________________________________________________
+select *from reviewer;
+__________________________________________________________
+5:
+ insert into director values
+(1,'sanjay','bansali'),
+(2,'ravi','badami'),
+(3,'karan','johar'),
+(4,'relly','squit'),
+(5,'martin','nolan');
+__________________________________________________________
+select *from director;
+__________________________________________________________
+6:
+insert into movie_cast values
+(2,5,'hero'),
+(1,2,'heroine'),
+(5,4,'heroine'),
+(3,1,'hero'),
+(4,3,'hero');
+__________________________________________________________
+select *from movie_cast;
+__________________________________________________________
+7:
+insert into movie_genres values
+(1,3),
+(4,2),
+(5,1),
+(3,4),
+(2,5);
+__________________________________________________________
+select *from movie_genres;
+__________________________________________________________
+8: 
+insert into rating values
+(2,4,3,7),
+(1,3,4,5),
+(4,1,5,1),
+(3,2,4,8),
+(5,5,2,1);
+__________________________________________________________
+select *from rating;
+__________________________________________________________
+9:
+ insert into movie_direction values
+(2,3),
+(4,5),
+(5,4),
+(3,1),
+(1,2);
+__________________________________________________________
+select *from movie_direction;
+---------------------------------------------------------------------
+
